@@ -1,0 +1,20 @@
+
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "SkillTrack Student Placement Portal",
+  "main": "app.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "vite": "^8.3.8"
+  }
+}
+

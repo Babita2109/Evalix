@@ -1,0 +1,287 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillTrack | Student Placement Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <span class="logo-icon">S</span>
+            <h2>SkillTrack</h2>
+        </div>
+
+        <p class="menu-heading">STUDENT PORTAL</p>
+
+        <nav>
+            <a href="#dashboard" class="nav-link active">▦ Dashboard</a>
+            <a href="#profile" class="nav-link">👤 My Profile</a>
+            <a href="#skills" class="nav-link">💻 My Skills</a>
+            <a href="#assessment" class="nav-link">📝 Assessments</a>
+            <a href="#analysis" class="nav-link">📊 Skill Gap Analysis</a>
+            <a href="#companies" class="nav-link">🏢 Eligible Companies</a>
+            <a href="#drives" class="nav-link">💼 Placement Drives</a>
+            <a href="#applications" class="nav-link">📋 My Applications</a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="#settings" class="nav-link">⚙ Settings</a>
+            <a href="#logout" class="nav-link">↪ Logout</a>
+        </div>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content" id="dashboard">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <div>
+                <h2>Student Dashboard</h2>
+                <p>Your personal placement preparation space</p>
+            </div>
+
+            <div class="profile">
+                <div class="notification">🔔</div>
+                <div class="avatar">ST</div>
+                <div>
+                    <strong id="studentName">Student Name</strong>
+                    <small>Student Account</small>
+                </div>
+            </div>
+
+        </header>
+
+        <!-- WELCOME -->
+        <section class="welcome-section">
+
+            <div>
+                <h1>Welcome to SkillTrack! 👋</h1>
+                <p>Learn, improve your skills and prepare for placements.</p>
+            </div>
+
+            <button class="primary-btn" id="assessmentBtn">
+                Start Assessment
+            </button>
+
+        </section>
+
+        <!-- STUDENT PROFILE SUMMARY -->
+        <section class="content-card" id="profile">
+
+            <div class="card-header">
+                <h3>My Academic Profile</h3>
+                <a href="#profile">View Profile</a>
+            </div>
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <p>Roll Number</p>
+                    <h2 id="rollNumber">Not added</h2>
+                </div>
+
+                <div class="stat-card">
+                    <p>Department</p>
+                    <h2 id="department">CSE</h2>
+                </div>
+
+                <div class="stat-card">
+                    <p>Current Semester</p>
+                    <h2 id="semester">5th</h2>
+                </div>
+
+                <div class="stat-card">
+                    <p>Current CGPA</p>
+                    <h2 id="cgpa">--</h2>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- PLACEMENT OVERVIEW -->
+        <section class="stats-grid">
+
+            <div class="stat-card">
+                <p>Placement Readiness</p>
+                <h2 id="readiness">--%</h2>
+                <span>Based on your assessment</span>
+            </div>
+
+            <div class="stat-card">
+                <p>Skills Added</p>
+                <h2 id="skillsCount">0</h2>
+                <span>Build your skill profile</span>
+            </div>
+
+            <div class="stat-card">
+                <p>Eligible Companies</p>
+                <h2 id="eligibleCount">0</h2>
+                <span>Based on company criteria</span>
+            </div>
+
+            <div class="stat-card">
+                <p>Applications</p>
+                <h2 id="applicationCount">0</h2>
+                <span>Track your applications</span>
+            </div>
+
+        </section>
+
+        <!-- SKILLS AND COMPANY -->
+        <section class="dashboard-grid">
+
+            <div class="content-card" id="skills">
+
+                <div class="card-header">
+                    <h3>My Skills</h3>
+                    <a href="#skills">Manage Skills</a>
+                </div>
+
+                <p>Add your technical and soft skills to your profile.</p>
+
+                <div class="skill">
+                    <div class="skill-info">
+                        <span>Programming</span>
+                        <span>Demo</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-fill" style="width: 50%"></div>
+                    </div>
+                </div>
+
+                <div class="skill">
+                    <div class="skill-info">
+                        <span>Database Management</span>
+                        <span>Demo</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-fill" style="width: 60%"></div>
+                    </div>
+                </div>
+
+                <div class="skill">
+                    <div class="skill-info">
+                        <span>Web Development</span>
+                        <span>Demo</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-fill" style="width: 40%"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="content-card" id="companies">
+
+                <div class="card-header">
+                    <h3>Company Eligibility</h3>
+                    <a href="#companies">View All</a>
+                </div>
+
+                <div class="company-item">
+                    <div>
+                        <strong>Company A</strong>
+                        <small>Eligibility criteria will appear here</small>
+                    </div>
+                    <span class="eligible">Demo</span>
+                </div>
+
+                <div class="company-item">
+                    <div>
+                        <strong>Company B</strong>
+                        <small>Eligibility criteria will appear here</small>
+                    </div>
+                    <span class="eligible">Demo</span>
+                </div>
+
+                <div class="company-item">
+                    <div>
+                        <strong>Company C</strong>
+                        <small>Eligibility criteria will appear here</small>
+                    </div>
+                    <span class="not-eligible">Demo</span>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- SKILL ANALYSIS -->
+        <section class="content-card skill-gap" id="analysis">
+
+            <div class="card-header">
+                <h3>Skill Improvement Plan</h3>
+                <a href="#analysis">View Analysis</a>
+            </div>
+
+            <div class="gap-item">
+                <div>
+                    <strong>Data Structures & Algorithms</strong>
+                    <p>Practice coding problems and improve logic building.</p>
+                </div>
+                <span class="priority high">High Priority</span>
+            </div>
+
+            <div class="gap-item">
+                <div>
+                    <strong>Database Management</strong>
+                    <p>Improve SQL joins, subqueries and query writing.</p>
+                </div>
+                <span class="priority medium">Medium Priority</span>
+            </div>
+
+            <div class="gap-item">
+                <div>
+                    <strong>Communication Skills</strong>
+                    <p>Practice spoken English and interview questions.</p>
+                </div>
+                <span class="priority medium">Medium Priority</span>
+            </div>
+
+        </section>
+
+        <!-- PLACEMENT DRIVES -->
+        <section class="content-card" id="drives">
+
+            <div class="card-header">
+                <h3>Upcoming Placement Drives</h3>
+                <a href="#drives">View All</a>
+            </div>
+
+            <p>No placement drives available right now.</p>
+
+        </section>
+
+        <!-- APPLICATIONS -->
+        <section class="content-card" id="applications">
+
+            <div class="card-header">
+                <h3>My Recent Applications</h3>
+                <a href="#applications">View All</a>
+            </div>
+
+            <p>You have not applied to any company yet.</p>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
+
