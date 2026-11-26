@@ -1,7 +1,9 @@
-
-/* =========================
-   1. GLOBAL SETTINGS
-========================= */
+:root {
+    --evalix-blue: #2563eb;
+    --evalix-red: #f43f5e;
+    --evalix-gradient: linear-gradient(135deg, #2563eb 0%, #9333ea 52%, #f43f5e 100%);
+    --evalix-soft: linear-gradient(135deg, rgba(37, 99, 235, 0.08) 0%, rgba(244, 63, 94, 0.08) 100%);
+}
 
 * {
     margin: 0;
@@ -15,7 +17,7 @@ html {
 
 body {
     font-family: Arial, sans-serif;
-    background: #f4f7fc;
+    background: #f4f6fb;
     color: #263449;
 }
 
@@ -24,16 +26,13 @@ body {
     min-height: 100vh;
 }
 
-/* =========================
-   2. SIDEBAR
-========================= */
 
 .sidebar {
     width: 250px;
     flex-shrink: 0;
-    background: #ffffff;
+    background: linear-gradient(180deg, #0b1120 0%, #172038 58%, #2d1228 100%);
     padding: 25px 18px;
-    border-right: 1px solid #e8edf5;
+    border-right: 1px solid rgba(244, 63, 94, 0.25);
     display: flex;
     flex-direction: column;
 }
@@ -42,16 +41,16 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 45px;
+    margin-bottom: 38px;
 }
 
 .logo h2 {
-    color: #1765d1;
-    font-size: 23px;
+    color: #ffffff;
+    font-size: 22px;
 }
 
 .logo-icon {
-    background: #1765d1;
+    background: var(--evalix-gradient);
     color: white;
     padding: 9px 13px;
     border-radius: 9px;
@@ -60,7 +59,7 @@ body {
 
 .menu-heading {
     font-size: 11px;
-    color: #9aa6b6;
+    color: #94a3b8;
     margin-bottom: 15px;
     font-weight: bold;
     letter-spacing: 1px;
@@ -77,7 +76,7 @@ body {
     gap: 12px;
     align-items: center;
     padding: 13px;
-    color: #65748b;
+    color: #cbd5e1;
     text-decoration: none;
     border-radius: 8px;
     font-size: 14px;
@@ -86,8 +85,9 @@ body {
 
 .nav-link:hover,
 .nav-link.active {
-    background: #eaf2ff;
-    color: #1765d1;
+    background: var(--evalix-gradient);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(244, 63, 94, 0.28);
 }
 
 .sidebar-bottom {
@@ -95,9 +95,6 @@ body {
     padding-top: 25px;
 }
 
-/* =========================
-   3. MAIN CONTENT
-========================= */
 
 .main-content {
     flex: 1;
@@ -115,12 +112,37 @@ body {
 
 .topbar h2 {
     font-size: 23px;
+    color: #1e293b;
 }
 
 .topbar p {
-    color: #8793a5;
+    color: #64748b;
     font-size: 13px;
     margin-top: 6px;
+}
+
+.timer-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--evalix-soft);
+    border: 1px solid rgba(244, 63, 94, 0.35);
+    padding: 7px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.timer-btn {
+    background: var(--evalix-gradient);
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
 }
 
 .profile {
@@ -135,13 +157,13 @@ body {
 }
 
 .profile small {
-    color: #8793a5;
+    color: #64748b;
     font-size: 12px;
 }
 
 .avatar {
-    background: #dceaff;
-    color: #1765d1;
+    background: var(--evalix-gradient);
+    color: #ffffff;
     padding: 12px;
     border-radius: 50%;
     font-weight: bold;
@@ -152,36 +174,32 @@ body {
     cursor: pointer;
 }
 
-/* =========================
-   4. WELCOME SECTION
-========================= */
-
 .welcome-section {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: linear-gradient(120deg, #e8f1ff, #f4f8ff);
+    background: var(--evalix-gradient);
     padding: 30px;
-    border: 1px solid #dce9fc;
-    border-radius: 14px;
+    border-radius: 16px;
     margin-bottom: 25px;
     gap: 20px;
+    box-shadow: 0 12px 28px rgba(37, 99, 235, 0.22);
 }
 
 .welcome-section h1 {
-    color: #174e9c;
+    color: #ffffff;
     margin-bottom: 8px;
     font-size: 25px;
 }
 
 .welcome-section p {
-    color: #647c9e;
+    color: #f1f5f9;
     font-size: 14px;
 }
 
 .primary-btn {
-    background: #1765d1;
-    color: white;
+    background: linear-gradient(90deg, #2563eb, #f43f5e);
+    color: #ffffff;
     border: none;
     padding: 13px 19px;
     border-radius: 8px;
@@ -190,14 +208,15 @@ body {
     transition: 0.2s ease;
 }
 
-.primary-btn:hover {
-    background: #0e4fae;
-    transform: translateY(-2px);
+.welcome-section .primary-btn {
+    background: #ffffff;
+    color: #1e293b;
 }
 
-/* =========================
-   5. STATISTICS CARDS
-========================= */
+.primary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(244, 63, 94, 0.35);
+}
 
 .stats-grid {
     display: grid;
@@ -214,6 +233,14 @@ body {
     border: 1px solid #e9eef5;
     box-shadow: 0 2px 8px rgba(30, 60, 100, 0.03);
     transition: 0.2s ease;
+}
+
+.stat-card {
+    border-top: 3px solid var(--evalix-blue);
+}
+
+.stat-card:nth-child(even) {
+    border-top-color: var(--evalix-red);
 }
 
 .stat-card:hover,
@@ -235,8 +262,29 @@ body {
 }
 
 .stat-card span {
-    color: #159568;
+    color: #2563eb;
     font-size: 12px;
+    font-weight: 600;
+}
+
+/* Growth Progress Tracker */
+
+#growthSection {
+    margin-bottom: 25px;
+}
+
+.growth-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+    margin-top: 16px;
+}
+
+.growth-box {
+    background: var(--evalix-soft);
+    border: 1px solid rgba(37, 99, 235, 0.2);
+    border-radius: 10px;
+    padding: 14px;
 }
 
 /* Academic profile card */
@@ -254,9 +302,7 @@ body {
     box-shadow: none;
 }
 
-/* =========================
-   6. DASHBOARD CONTENT
-========================= */
+
 
 .dashboard-grid {
     display: grid;
@@ -279,13 +325,15 @@ body {
 }
 
 .card-header a {
-    color: #1765d1;
+    color: #2563eb;
     font-size: 12px;
+    font-weight: 600;
     text-decoration: none;
     white-space: nowrap;
 }
 
 .card-header a:hover {
+    color: #f43f5e;
     text-decoration: underline;
 }
 
@@ -296,9 +344,6 @@ body {
     margin-bottom: 15px;
 }
 
-/* =========================
-   7. SKILLS
-========================= */
 
 .skill {
     margin-bottom: 21px;
@@ -325,13 +370,12 @@ body {
 
 .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #1765d1, #55a0ff);
+    background: var(--evalix-gradient);
     border-radius: 10px;
+    transition: width 0.5s ease;
 }
 
-/* =========================
-   8. COMPANY ELIGIBILITY
-========================= */
+
 
 .company-item {
     display: flex;
@@ -363,21 +407,21 @@ body {
     padding: 7px 10px;
     border-radius: 20px;
     white-space: nowrap;
+    font-weight: 600;
 }
 
 .eligible {
-    background: #e4f7ed;
-    color: #168252;
+    background: rgba(37, 99, 235, 0.12);
+    color: #1d4ed8;
 }
 
 .not-eligible {
-    background: #fff0ed;
-    color: #dc5b48;
-}
+    background: rgba(244, 63, 94, 0.12);
+    color: #e11d48;
 
-/* =========================
-   9. SKILL GAP ANALYSIS
-========================= */
+
+    
+}
 
 .skill-gap {
     margin-bottom: 25px;
@@ -412,21 +456,20 @@ body {
     white-space: nowrap;
     padding: 7px 10px;
     border-radius: 20px;
+    font-weight: 600;
 }
 
 .high {
-    background: #fff0ed;
-    color: #d95343;
+    background: rgba(244, 63, 94, 0.12);
+    color: #e11d48;
 }
 
 .medium {
-    background: #fff6df;
-    color: #ad7a16;
+    background: rgba(37, 99, 235, 0.12);
+    color: #1d4ed8;
 }
 
-/* =========================
-   10. PLACEMENT SECTIONS
-========================= */
+
 
 #drives,
 #applications {
@@ -441,12 +484,9 @@ body {
     color: #8793a5;
 }
 
-/* =========================
-   11. RESPONSIVE DESIGN
-========================= */
+
 
 @media (max-width: 1100px) {
-
     .stats-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
@@ -457,7 +497,6 @@ body {
 }
 
 @media (max-width: 650px) {
-
     .app-container {
         flex-direction: column;
     }
@@ -466,7 +505,7 @@ body {
         width: 100%;
         padding: 15px;
         border-right: none;
-        border-bottom: 1px solid #e8edf5;
+        border-bottom: 1px solid rgba(244, 63, 94, 0.25);
     }
 
     .logo {
@@ -526,9 +565,7 @@ body {
 }
 
 @media (max-width: 380px) {
-
     .stats-grid {
         grid-template-columns: 1fr;
     }
 }
-

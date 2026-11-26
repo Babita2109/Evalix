@@ -1,30 +1,469 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkillTrack | Student Placement Portal</title>
+    <title>EVALIX | Skill Track & Career Readiness Portal</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --evalix-blue: #2563eb;
+            --evalix-red: #f43f5e;
+            --evalix-gradient: linear-gradient(135deg, #2563eb 0%, #9333ea 52%, #f43f5e 100%);
+            --evalix-soft: linear-gradient(135deg, rgba(37, 99, 235, 0.08) 0%, rgba(244, 63, 94, 0.08) 100%);
+        }
+
+        body { background: #f4f6fb; }
+
+        /* === LOGIN / REGISTER / FORGOT PASSWORD VIEW === */
+        #authView {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at top left, #1e3a8a 0%, #0b1120 50%, #4c0519 100%);
+            padding: 20px;
+        }
+
+        .auth-card {
+            width: 100%;
+            max-width: 920px;
+            background: #ffffff;
+            border-radius: 20px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.45);
+        }
+
+        .auth-brand-side {
+            background: linear-gradient(160deg, #090d16 0%, #172554 55%, #881337 100%);
+            color: #ffffff;
+            padding: 40px 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .auth-form-side {
+            padding: 40px 36px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .auth-tabs {
+            display: flex;
+            gap: 8px;
+            background: #f1f5f9;
+            padding: 5px;
+            border-radius: 10px;
+            margin-bottom: 22px;
+        }
+
+        .auth-tab-btn {
+            flex: 1;
+            padding: 9px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            background: transparent;
+            color: #64748b;
+            transition: 0.2s ease;
+        }
+
+        .auth-tab-btn.active {
+            background: var(--evalix-gradient);
+            color: #ffffff;
+            box-shadow: 0 4px 10px rgba(244, 63, 94, 0.25);
+        }
+
+        .auth-input-group {
+            margin-bottom: 14px;
+        }
+
+        .auth-input-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: #334155;
+            margin-bottom: 5px;
+        }
+
+        .auth-input-group input,
+        .auth-input-group select {
+            width: 100%;
+            padding: 11px 13px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: border 0.2s;
+            background: #ffffff;
+        }
+
+        .auth-input-group input:focus,
+        .auth-input-group select:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+
+        @media (max-width: 768px) {
+            .auth-card { grid-template-columns: 1fr; }
+            .auth-brand-side { padding: 28px 24px; }
+        }
+
+        /* === DASHBOARD STYLES === */
+        .sidebar {
+            background: linear-gradient(180deg, #0b1120 0%, #172038 58%, #2d1228 100%) !important;
+            border-right: 1px solid rgba(244, 63, 94, 0.25);
+        }
+
+        .nav-link.active,
+        .nav-link:hover {
+            background: var(--evalix-gradient) !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 12px rgba(244, 63, 94, 0.28);
+        }
+
+        .welcome-section {
+            background: var(--evalix-gradient) !important;
+            color: #ffffff !important;
+            border-radius: 16px;
+            box-shadow: 0 12px 28px rgba(37, 99, 235, 0.22);
+        }
+
+        .welcome-section h1,
+        .welcome-section p { color: #ffffff !important; }
+
+        .primary-btn {
+            background: linear-gradient(90deg, #2563eb, #f43f5e) !important;
+            color: #ffffff !important;
+            border: none !important;
+            font-weight: 600;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .welcome-section .primary-btn {
+            background: #ffffff !important;
+            color: #1e293b !important;
+            font-weight: 700;
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(244, 63, 94, 0.35);
+        }
+
+        .stat-card {
+            border-top: 3px solid var(--evalix-blue);
+            background: #ffffff;
+        }
+
+        .stat-card:nth-child(even) { border-top-color: var(--evalix-red); }
+
+        .progress-fill {
+            background: var(--evalix-gradient) !important;
+            transition: width 0.5s ease;
+        }
+
+        .timer-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--evalix-soft);
+            border: 1px solid rgba(244, 63, 94, 0.35);
+            padding: 7px 14px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .timer-btn {
+            background: var(--evalix-gradient);
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            padding: 4px 10px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .growth-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 14px;
+            margin-top: 16px;
+        }
+
+        .growth-box {
+            background: var(--evalix-soft);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            border-radius: 10px;
+            padding: 14px;
+        }
+
+        /* Vertical Graph Bar Chart */
+        .bar-chart-wrapper {
+            margin-top: 22px;
+            padding: 18px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+        }
+
+        .bar-chart-area {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 170px;
+            padding: 16px 10px 0 10px;
+            border-bottom: 2px solid #cbd5e1;
+            gap: 12px;
+        }
+
+        .bar-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            height: 100%;
+            justify-content: flex-end;
+        }
+
+        .bar-value {
+            font-size: 11px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 5px;
+        }
+
+        .bar-stick {
+            width: 34px;
+            max-width: 80%;
+            border-radius: 8px 8px 0 0;
+            background: linear-gradient(180deg, #f43f5e 0%, #9333ea 50%, #2563eb 100%);
+            transition: height 0.5s ease;
+            min-height: 8px;
+        }
+
+        .bar-labels {
+            display: flex;
+            justify-content: space-around;
+            padding-top: 8px;
+            gap: 12px;
+        }
+
+        .bar-labels span {
+            flex: 1;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        /* Settings & Privacy Modal Tabs */
+        .sp-nav-btn {
+            width: 100%;
+            text-align: left;
+            padding: 10px 12px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #334155;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+
+        .sp-nav-btn:hover,
+        .sp-nav-btn.active {
+            background: var(--evalix-gradient);
+            color: #ffffff;
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="app-container">
+<!-- ==========================================
+     1. LOGIN, REGISTER & FORGOT PASSWORD VIEW
+========================================== -->
+<div id="authView">
+    <div class="auth-card">
+        <!-- Left Brand Panel -->
+        <div class="auth-brand-side">
+            <div>
+                <div style="display:flex; align-items:center; gap:14px; margin-bottom:28px;">
+                    <svg width="56" height="56" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="border-radius:14px; box-shadow:0 6px 16px rgba(244,63,94,0.35);">
+                        <defs>
+                            <linearGradient id="authLogoGrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#f43f5e"/>
+                                <stop offset="50%" stop-color="#9333ea"/>
+                                <stop offset="100%" stop-color="#2563eb"/>
+                            </linearGradient>
+                        </defs>
+                        <rect x="3" y="3" width="94" height="94" rx="22" fill="#090d16" stroke="url(#authLogoGrad)" stroke-width="5"/>
+                        <polygon points="22,26 44,16 62,24 40,34" fill="#ffffff"/>
+                        <path d="M30,31 V39 C30,42 52,42 52,39 V31" fill="#e2e8f0"/>
+                        <line x1="24" y1="26" x2="24" y2="41" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+                        <path d="M34 40 H74 L68 50 H44 V56 H62 L56 65 H44 V72 H74 L68 82 H30 Z" fill="url(#authLogoGrad)"/>
+                        <path d="M55 72 L78 48 M78 48 H66 M78 48 V60" stroke="#f43f5e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <div>
+                        <h1 style="margin:0; font-size:28px; letter-spacing:0.6px;">EVALIX</h1>
+                        <small style="color:#cbd5e1; font-size:12px;">Skill Track • Learn • Practice • Grow</small>
+                    </div>
+                </div>
+
+                <h2 style="font-size:22px; line-height:1.35; margin-bottom:14px;">Skill Track & Placement Intelligence Space</h2>
+                <p style="color:#cbd5e1; font-size:13px; line-height:1.6;">
+                    Sharpen your technical skills, track daily practice velocity, prepare for interviews across C, C++, Java, Python & System Design, and apply directly to hiring drives.
+                </p>
+            </div>
+
+            <div style="margin-top:28px; padding-top:18px; border-top:1px solid rgba(255,255,255,0.15); font-size:12px; color:#94a3b8;">
+                ✓ Core & Language Syllabi &nbsp;•&nbsp; ✓ Live MCQ & Interview Tests &nbsp;•&nbsp; ✓ Direct Hiring Drives
+            </div>
+        </div>
+
+        <!-- Right Form Panel -->
+        <div class="auth-form-side">
+            <div class="auth-tabs" id="authTabsBar">
+                <button type="button" id="loginTabBtn" class="auth-tab-btn active" onclick="switchAuthMode('login')">Sign In</button>
+                <button type="button" id="registerTabBtn" class="auth-tab-btn" onclick="switchAuthMode('register')">Create Account</button>
+            </div>
+
+            <!-- SIGN IN FORM -->
+            <form id="loginForm" onsubmit="handleLoginSubmit(event)">
+                <h3 style="margin:0 0 6px 0; color:#0f172a; font-size:20px;">Welcome Back!</h3>
+                <p style="margin:0 0 18px 0; color:#64748b; font-size:13px;">Sign in to continue your EVALIX Skill Track session.</p>
+
+                <div class="auth-input-group">
+                    <label>Email Address</label>
+                    <input type="email" id="loginEmail" placeholder="e.g. alex@evalix.in" required />
+                </div>
+
+                <div class="auth-input-group">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
+                        <label style="margin:0;">Password</label>
+                        <a href="#forgot" onclick="switchAuthMode('forgot'); return false;" style="font-size:12px; color:#2563eb; font-weight:600; text-decoration:none;">Forgot Password?</a>
+                    </div>
+                    <input type="password" id="loginPassword" placeholder="Enter your password" required />
+                </div>
+
+                <button type="submit" class="primary-btn" style="width:100%; padding:12px; font-size:14px; margin-top:6px;">
+                    Login to EVALIX Dashboard →
+                </button>
+
+                <button type="button" onclick="quickDemoLogin()" style="width:100%; margin-top:10px; padding:10px; background:#f1f5f9; color:#334155; border:1px solid #cbd5e1; border-radius:8px; font-weight:600; font-size:13px; cursor:pointer;">
+                    ⚡ Instant Demo Login (1-Click Access)
+                </button>
+            </form>
+
+            <!-- REGISTER FORM -->
+            <form id="registerForm" style="display:none;" onsubmit="handleRegisterSubmit(event)">
+                <h3 style="margin:0 0 6px 0; color:#0f172a; font-size:20px;">Create Account</h3>
+                <p style="margin:0 0 16px 0; color:#64748b; font-size:13px;">Set up your EVALIX Skill Track profile.</p>
+
+                <div class="auth-input-group">
+                    <label>Full Name</label>
+                    <input type="text" id="regName" placeholder="e.g. Alex Verma" required />
+                </div>
+
+                <div class="auth-input-group">
+                    <label>Primary Skill Domain</label>
+                    <input type="text" id="regDomain" placeholder="e.g. Full-Stack / Backend / Python" required />
+                </div>
+
+                <div class="auth-input-group">
+                    <label>Email Address</label>
+                    <input type="email" id="regEmail" placeholder="name@example.com" required />
+                </div>
+
+                <div class="auth-input-group">
+                    <label>Create Password</label>
+                    <input type="password" id="regPassword" placeholder="Minimum 4 characters" minlength="4" required />
+                </div>
+
+                <button type="submit" class="primary-btn" style="width:100%; padding:12px; font-size:14px; margin-top:4px;">
+                    Register & Enter Portal →
+                </button>
+            </form>
+
+            <!-- FORGOT PASSWORD FORM -->
+            <form id="forgotForm" style="display:none;" onsubmit="handleForgotPassword(event)">
+                <h3 style="margin:0 0 6px 0; color:#0f172a; font-size:20px;">Reset Your Password</h3>
+                <p style="margin:0 0 16px 0; color:#64748b; font-size:13px;">Enter your registered email and set a new password.</p>
+
+                <div class="auth-input-group">
+                    <label>Registered Email Address</label>
+                    <input type="email" id="forgotEmail" placeholder="name@example.com" required />
+                </div>
+
+                <div class="auth-input-group">
+                    <label>New Password</label>
+                    <input type="password" id="forgotNewPassword" placeholder="Enter new password" minlength="4" required />
+                </div>
+
+                <div class="auth-input-group">
+                    <label>Confirm New Password</label>
+                    <input type="password" id="forgotConfirmPassword" placeholder="Re-enter new password" minlength="4" required />
+                </div>
+
+                <button type="submit" class="primary-btn" style="width:100%; padding:12px; font-size:14px; margin-top:4px;">
+                    Update Password & Sign In
+                </button>
+
+                <button type="button" onclick="switchAuthMode('login')" style="width:100%; margin-top:10px; padding:9px; background:#f1f5f9; color:#334155; border:none; border-radius:8px; font-weight:600; font-size:13px; cursor:pointer;">
+                    ← Back to Sign In
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- ==========================================
+     2. MAIN PORTAL DASHBOARD VIEW
+========================================== -->
+<div class="app-container" id="appView" style="display:none;">
 
     <!-- SIDEBAR -->
     <aside class="sidebar">
 
-        <div class="logo">
-            <span class="logo-icon">S</span>
-            <h2>SkillTrack</h2>
+        <div class="logo" style="display: flex; align-items: center; gap: 12px;">
+            <svg width="48" height="48" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0; border-radius:12px; box-shadow:0 4px 12px rgba(244,63,94,0.3);">
+                <defs>
+                    <linearGradient id="evalixGrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#f43f5e"/>
+                        <stop offset="50%" stop-color="#9333ea"/>
+                        <stop offset="100%" stop-color="#2563eb"/>
+                    </linearGradient>
+                </defs>
+                <rect x="3" y="3" width="94" height="94" rx="22" fill="#090d16" stroke="url(#evalixGrad)" stroke-width="5"/>
+                <polygon points="22,26 44,16 62,24 40,34" fill="#ffffff"/>
+                <path d="M30,31 V39 C30,42 52,42 52,39 V31" fill="#e2e8f0"/>
+                <line x1="24" y1="26" x2="24" y2="41" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+                <path d="M34 40 H74 L68 50 H44 V56 H62 L56 65 H44 V72 H74 L68 82 H30 Z" fill="url(#evalixGrad)"/>
+                <path d="M55 72 L78 48 M78 48 H66 M78 48 V60" stroke="#f43f5e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div>
+                <h2 style="margin: 0; line-height: 1.1; font-size: 21px; color: #ffffff; letter-spacing: 0.5px;">EVALIX</h2>
+                <small style="color: #cbd5e1; font-size: 11px;">Skill Track • Learn • Practice • Grow</small>
+            </div>
         </div>
 
-        <p class="menu-heading">STUDENT PORTAL</p>
+        <p class="menu-heading">SKILL TRACK PORTAL</p>
 
         <nav>
             <a href="#dashboard" class="nav-link active">▦ Dashboard</a>
-            <a href="#profile" class="nav-link">👤 My Profile</a>
+            <a href="#growthSection" class="nav-link">📈 Growth & Graph</a>
+            <a href="#profile" class="nav-link">👤 Profile Summary</a>
             <a href="#skills" class="nav-link">💻 My Skills</a>
             <a href="#assessment" class="nav-link">📝 Assessments</a>
             <a href="#analysis" class="nav-link">📊 Skill Gap Analysis</a>
@@ -34,8 +473,8 @@
         </nav>
 
         <div class="sidebar-bottom">
-            <a href="#settings" class="nav-link">⚙ Settings</a>
-            <a href="#logout" class="nav-link">↪ Logout</a>
+            <a href="#settings" id="settingsBtn" class="nav-link">⚙ Settings & Privacy</a>
+            <a href="#logout" id="logoutBtn" class="nav-link">↪ Logout</a>
         </div>
 
     </aside>
@@ -47,27 +486,34 @@
         <header class="topbar">
 
             <div>
-                <h2>Student Dashboard</h2>
-                <p>Your personal placement preparation space</p>
+                <h2>EVALIX — Skill Track</h2>
+                <p>Career Readiness, Upskilling & Hiring Intelligence Space</p>
             </div>
 
-            <div class="profile">
-                <div class="notification">🔔</div>
-                <div class="avatar">ST</div>
-                <div>
-                    <strong id="studentName">Student Name</strong>
-                    <small>Student Account</small>
+            <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+                <div class="timer-badge">
+                    <span>⏱ Practice Time: <strong id="practiceTime">00m 00s</strong></span>
+                    <button id="toggleTimerBtn" class="timer-btn" onclick="togglePracticeTimer()">Pause</button>
+                </div>
+
+                <div class="profile" style="cursor:pointer;" onclick="openSettingsModal('account')" title="Open Account Preferences">
+                    <div class="notification">🔔</div>
+                    <div class="avatar" id="avatarInitials" style="background: linear-gradient(135deg, #2563eb, #f43f5e); color: #ffffff;">EX</div>
+                    <div>
+                        <strong id="studentName">Candidate Profile</strong>
+                        <small id="topbarDomainTag">Full-Stack / Backend</small>
+                    </div>
                 </div>
             </div>
 
         </header>
 
-        <!-- WELCOME -->
+        <!-- WELCOME HERO BANNER -->
         <section class="welcome-section">
 
             <div>
-                <h1>Welcome to SkillTrack! 👋</h1>
-                <p>Learn, improve your skills and prepare for placements.</p>
+                <h1 id="welcomeHeading">Welcome to EVALIX! 👋</h1>
+                <p>Skill Track — Learn, Practice & Grow with live assessments, visual analytics, and career opportunities.</p>
             </div>
 
             <button class="primary-btn" id="assessmentBtn">
@@ -76,85 +522,120 @@
 
         </section>
 
-        <!-- STUDENT PROFILE SUMMARY -->
-        <section class="content-card" id="profile">
-
-            <div class="card-header">
-                <h3>My Academic Profile</h3>
-                <a href="#profile">View Profile</a>
-            </div>
-
-            <div class="stats-grid">
-
-                <div class="stat-card">
-                    <p>Roll Number</p>
-                    <h2 id="rollNumber">Not added</h2>
-                </div>
-
-                <div class="stat-card">
-                    <p>Department</p>
-                    <h2 id="department">CSE</h2>
-                </div>
-
-                <div class="stat-card">
-                    <p>Current Semester</p>
-                    <h2 id="semester">5th</h2>
-                </div>
-
-                <div class="stat-card">
-                    <p>Current CGPA</p>
-                    <h2 id="cgpa">--</h2>
-                </div>
-
-            </div>
-
-        </section>
-
-        <!-- PLACEMENT OVERVIEW -->
+        <!-- KEY METRICS OVERVIEW -->
         <section class="stats-grid">
 
             <div class="stat-card">
-                <p>Placement Readiness</p>
+                <p>Overall Growth Progress</p>
+                <h2 id="overallGrowth">40%</h2>
+                <span>Based on practice & tests</span>
+            </div>
+
+            <div class="stat-card">
+                <p>Total Practice Time</p>
+                <h2 id="practiceCardTime">00m 00s</h2>
+                <span>Active learning duration</span>
+            </div>
+
+            <div class="stat-card">
+                <p>Hiring Readiness</p>
                 <h2 id="readiness">--%</h2>
-                <span>Based on your assessment</span>
+                <span>Latest assessment score</span>
             </div>
 
             <div class="stat-card">
-                <p>Skills Added</p>
-                <h2 id="skillsCount">0</h2>
-                <span>Build your skill profile</span>
-            </div>
-
-            <div class="stat-card">
-                <p>Eligible Companies</p>
-                <h2 id="eligibleCount">0</h2>
-                <span>Based on company criteria</span>
-            </div>
-
-            <div class="stat-card">
-                <p>Applications</p>
-                <h2 id="applicationCount">0</h2>
-                <span>Track your applications</span>
+                <p>Eligible Drives / Applied</p>
+                <h2><span id="eligibleCount">0</span> / <span id="applicationCount">0</span></h2>
+                <span>Live career opportunities</span>
             </div>
 
         </section>
 
-        <!-- SKILLS AND COMPANY -->
+        <!-- GROWTH PROGRESS & BAR GRAPH -->
+        <section class="content-card" id="growthSection">
+
+            <div class="card-header">
+                <h3>📈 Growth Progress & Practice Graph</h3>
+                <span id="growthLevelBadge" style="background: linear-gradient(90deg, #2563eb, #f43f5e); color:#ffffff; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:600;">Stage: Rising Builder</span>
+            </div>
+
+            <div class="skill" style="margin-top: 10px;">
+                <div class="skill-info">
+                    <strong>Overall Career & Skill Growth</strong>
+                    <strong id="overallGrowthLabel" style="color: #2563eb;">40%</strong>
+                </div>
+                <div class="progress" style="height: 12px;">
+                    <div id="overallGrowthBar" class="progress-fill" style="width: 40%;"></div>
+                </div>
+            </div>
+
+            <!-- BAR GRAPH VISUALIZATION -->
+            <div class="bar-chart-wrapper">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                    <strong style="font-size:13px; color:#1e293b;">Skill & Language Mastery Graph (%)</strong>
+                    <small style="color:#64748b;">Updates automatically on assessment completion</small>
+                </div>
+                <div class="bar-chart-area" id="growthBarChart"></div>
+                <div class="bar-labels" id="growthBarLabels"></div>
+            </div>
+
+            <div class="growth-grid" id="trackGrowthGrid"></div>
+
+        </section>
+
+        <!-- PROFILE SUMMARY -->
+        <section class="content-card" id="profile">
+
+            <div class="card-header">
+                <h3>Profile Summary</h3>
+                <a href="#settings" onclick="openSettingsModal('account'); return false;">Manage Settings & Privacy</a>
+            </div>
+
+            <div class="stats-grid" style="grid-template-columns: repeat(3, minmax(0, 1fr));">
+
+                <div class="stat-card">
+                    <p>Primary Skill Domain</p>
+                    <h2 id="profileDomain">Full-Stack / Backend</h2>
+                </div>
+
+                <div class="stat-card">
+                    <p>Profile Visibility</p>
+                    <h2 id="profileVisibilityStatus">Public to Recruiters</h2>
+                </div>
+
+                <div class="stat-card">
+                    <p>Assessments Completed</p>
+                    <h2 id="testsCompleted">0</h2>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- CORE TRACKS AND ELIGIBLE COMPANIES -->
         <section class="dashboard-grid">
 
             <div class="content-card" id="skills">
 
                 <div class="card-header">
-                    <h3>My Skills</h3>
-                    <a href="#skills">Manage Skills</a>
+                    <h3>My Core Tracks</h3>
+                    <a href="#assessment" onclick="openPortalModal('syllabus'); return false;">View All 10 Syllabi</a>
                 </div>
-
-                <p>Add your technical and soft skills to your profile.</p>
 
                 <div class="skill">
                     <div class="skill-info">
-                        <span>Programming</span>
-                        <span>Demo</span>
+                        <span>Data Structures & Algorithms</span>
+                        <span>Active</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-fill" style="width: 57%"></div>
+                    </div>
+                </div>
+
+                <div class="skill">
+                    <div class="skill-info">
+                        <span>C, C++, Java & Python Logic</span>
+                        <span>Active</span>
                     </div>
                     <div class="progress">
                         <div class="progress-fill" style="width: 50%"></div>
@@ -163,21 +644,11 @@
 
                 <div class="skill">
                     <div class="skill-info">
-                        <span>Database Management</span>
-                        <span>Demo</span>
+                        <span>Backend, Database & Communication</span>
+                        <span>Active</span>
                     </div>
                     <div class="progress">
-                        <div class="progress-fill" style="width: 60%"></div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-info">
-                        <span>Web Development</span>
-                        <span>Demo</span>
-                    </div>
-                    <div class="progress">
-                        <div class="progress-fill" style="width: 40%"></div>
+                        <div class="progress-fill" style="width: 45%"></div>
                     </div>
                 </div>
 
@@ -192,62 +663,22 @@
 
                 <div class="company-item">
                     <div>
-                        <strong>Company A</strong>
-                        <small>Eligibility criteria will appear here</small>
+                        <strong>Loading Opportunities...</strong>
+                        <small>Connecting to EVALIX backend</small>
                     </div>
-                    <span class="eligible">Demo</span>
-                </div>
-
-                <div class="company-item">
-                    <div>
-                        <strong>Company B</strong>
-                        <small>Eligibility criteria will appear here</small>
-                    </div>
-                    <span class="eligible">Demo</span>
-                </div>
-
-                <div class="company-item">
-                    <div>
-                        <strong>Company C</strong>
-                        <small>Eligibility criteria will appear here</small>
-                    </div>
-                    <span class="not-eligible">Demo</span>
+                    <span class="eligible">Syncing</span>
                 </div>
 
             </div>
 
         </section>
 
-        <!-- SKILL ANALYSIS -->
+        <!-- SKILL IMPROVEMENT PLAN -->
         <section class="content-card skill-gap" id="analysis">
 
             <div class="card-header">
                 <h3>Skill Improvement Plan</h3>
                 <a href="#analysis">View Analysis</a>
-            </div>
-
-            <div class="gap-item">
-                <div>
-                    <strong>Data Structures & Algorithms</strong>
-                    <p>Practice coding problems and improve logic building.</p>
-                </div>
-                <span class="priority high">High Priority</span>
-            </div>
-
-            <div class="gap-item">
-                <div>
-                    <strong>Database Management</strong>
-                    <p>Improve SQL joins, subqueries and query writing.</p>
-                </div>
-                <span class="priority medium">Medium Priority</span>
-            </div>
-
-            <div class="gap-item">
-                <div>
-                    <strong>Communication Skills</strong>
-                    <p>Practice spoken English and interview questions.</p>
-                </div>
-                <span class="priority medium">Medium Priority</span>
             </div>
 
         </section>
@@ -256,11 +687,9 @@
         <section class="content-card" id="drives">
 
             <div class="card-header">
-                <h3>Upcoming Placement Drives</h3>
+                <h3>Upcoming Hiring & Placement Drives</h3>
                 <a href="#drives">View All</a>
             </div>
-
-            <p>No placement drives available right now.</p>
 
         </section>
 
@@ -284,4 +713,3 @@
 
 </body>
 </html>
-
